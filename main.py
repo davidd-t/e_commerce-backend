@@ -1,4 +1,3 @@
-import os
 import uuid
 
 from fastapi import FastAPI, HTTPException
@@ -9,17 +8,9 @@ app = FastAPI(title="Revbox API", version="1.0.0")
 
 # --- CORS -------------------------------------------------------------------
 # In dev folosim Vite (5173). In productie, originea de pe Vercel vine din env.
-frontend_url = os.getenv("FRONTEND_URL")
-allowed_origins = ["http://localhost:5173", "http://127.0.0.1:5173"]
-if frontend_url:
-    allowed_origins.append(frontend_url)
-else:
-    # Fara FRONTEND_URL setat permitem orice origine (util pentru testare rapida).
-    allowed_origins = ["*"]
-
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=allowed_origins,
+    allow_origins=["*"],
     allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
